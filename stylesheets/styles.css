@@ -25,11 +25,18 @@
 .button {
     width: 10em;
     height: 4em;
+    align-self: center;
+    margin: 10px 0px 0px 0px;
 }
 
 .main-container {
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column;
+    justify-content: center;
     margin: 20px 0px 0px 0px;
     border: red solid 1px;
+}
+
+.status {
+    text-align: center;
 }

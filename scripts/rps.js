@@ -58,36 +58,84 @@ function playRound(playerSelection, computerSelection) {
 
 // Setup for a 5 round game.
 function startGame() {
+    
     let playerSelection;
     let computerSelection;
-    let round = 1;
 
-    while (round <= 5) {
-        playerSelection = prompt("Rock, paper, or scissors?")
+    rockButton.addEventListener("click", function(){
+        playerSelection = "rock";
         computerSelection = computerPlay();
-        console.log(playRound(playerSelection, computerSelection));
-        round++;
-    }
+        let result = playRound(playerSelection, computerSelection);
+        gameStatus.textContent = (result);
+        if (result.includes("Win")) {
+            playerScore++;
+        } else if (result.includes("Lose")) {
+            computerScore++;
+        }
+        scoreStatus.textContent = (`Your Score: ${playerScore} Computer Score: ${computerScore}`);
+        return;
+    });
+
+    paperButton.addEventListener("click", function(){
+        playerSelection = "paper";
+        computerSelection = computerPlay();
+        let result = playRound(playerSelection, computerSelection);
+        gameStatus.textContent = (result);
+        if (result.includes("Win")) {
+            playerScore++;
+        } else if (result.includes("Lose")) {
+            computerScore++;
+        }
+        scoreStatus.textContent = (`Your Score: ${playerScore} Computer Score: ${computerScore}`);
+        return;
+    });
+
+    scissorsButton.addEventListener("click", function(){
+        playerSelection = "scissors";
+        computerSelection = computerPlay();
+        let result = playRound(playerSelection, computerSelection);
+        gameStatus.textContent = (result);
+        if (result.includes("Win")) {
+            playerScore++;
+        } else if (result.includes("Lose")) {
+            computerScore++;
+        }
+        scoreStatus.textContent = (`Your Score: ${playerScore} Computer Score: ${computerScore}`);
+        return;
+    });
 }
+
+let playerScore = 0;
+let computerScore = 0;
+
+const mainContainer = document.querySelector(".main-container");
+const gameStatus = document.createElement("p");
+const scoreStatus = document.createElement("p");
+const rockButton = document.createElement("button");
+const paperButton = document.createElement("button");
+const scissorsButton = document.createElement("button");
+
+gameStatus.textContent = "Rock, Paper, or Scissors?";
+gameStatus.classList.add("status");
+
+scoreStatus.textContent = "Your Score: 0 Computer Score: 0";
+scoreStatus.classList.add("status");
+
+rockButton.textContent = "Rock";
+rockButton.classList.add("rock", "button");
+
+paperButton.textContent = "Paper";
+paperButton.classList.add("paper", "button");
+
+scissorsButton.textContent = "Scissors";
+scissorsButton.classList.add("scissors", "button");
 
 const playButton = document.querySelector(".play-game");
 playButton.addEventListener("click", function(){
-    const mainContainer = document.querySelector(".main-container");
-    const rockButton = document.createElement("button");
-    const paperButton = document.createElement("button");
-    const scissorsButton = document.createElement("button");
-
-    rockButton.textContent = "Rock";
-    rockButton.classList.add("rock", "button");
-   
-    paperButton.textContent = "Paper";
-    paperButton.classList.add("paper", "button");
-
-    scissorsButton.textContent = "Scissors";
-    scissorsButton.classList.add("scissors", "button");
-
-
+    mainContainer.appendChild(gameStatus);
+    mainContainer.appendChild(scoreStatus);
     mainContainer.appendChild(rockButton);
     mainContainer.appendChild(paperButton);
     mainContainer.appendChild(scissorsButton);
+    startGame();
 });
