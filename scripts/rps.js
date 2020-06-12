@@ -6,7 +6,7 @@ function computerPlay() {
 
 // Geneterates a random number between min and max inclusive.
 function getRandomIntInclusive(min, max) {
-    min = Math.ceil(min);
+    min = Math.ceil(min)
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
   }
@@ -57,7 +57,7 @@ function playRound(playerSelection, computerSelection) {
 }
 
 // Setup for a 5 round game.
-function game() {
+function startGame() {
     let playerSelection;
     let computerSelection;
     let round = 1;
@@ -70,4 +70,24 @@ function game() {
     }
 }
 
-game();
+const playButton = document.querySelector(".play-game");
+playButton.addEventListener("click", function(){
+    const mainContainer = document.querySelector(".main-container");
+    const rockButton = document.createElement("button");
+    const paperButton = document.createElement("button");
+    const scissorsButton = document.createElement("button");
+
+    rockButton.textContent = "Rock";
+    rockButton.classList.add("rock", "button");
+   
+    paperButton.textContent = "Paper";
+    paperButton.classList.add("paper", "button");
+
+    scissorsButton.textContent = "Scissors";
+    scissorsButton.classList.add("scissors", "button");
+
+
+    mainContainer.appendChild(rockButton);
+    mainContainer.appendChild(paperButton);
+    mainContainer.appendChild(scissorsButton);
+});
