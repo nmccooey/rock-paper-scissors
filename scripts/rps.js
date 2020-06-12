@@ -72,7 +72,15 @@ function startGame() {
         } else if (result.includes("Lose")) {
             computerScore++;
         }
+
         scoreStatus.textContent = (`Your Score: ${playerScore} Computer Score: ${computerScore}`);
+
+        if (playerScore == 5) {
+            gameOver("win");
+        } else if (computerScore == 5) {
+            gameOver("lose");
+        }
+
         return;
     });
 
@@ -86,7 +94,15 @@ function startGame() {
         } else if (result.includes("Lose")) {
             computerScore++;
         }
+
         scoreStatus.textContent = (`Your Score: ${playerScore} Computer Score: ${computerScore}`);
+
+        if (playerScore == 5) {
+            gameOver("win");
+        } else if (computerScore == 5) {
+            gameOver("lose");
+        }
+
         return;
     });
 
@@ -100,9 +116,27 @@ function startGame() {
         } else if (result.includes("Lose")) {
             computerScore++;
         }
+        
         scoreStatus.textContent = (`Your Score: ${playerScore} Computer Score: ${computerScore}`);
+
+        if (playerScore == 5) {
+            gameOver("win");
+        } else if (computerScore == 5) {
+            gameOver("lose");
+        }
+
         return;
     });
+}
+
+function gameOver(result) {
+    if (result == "win") {
+        alert("You Win!")
+        location.reload();
+    } else if (result == "lose") {
+        alert("You Lose!")
+        location.reload();
+    }
 }
 
 let playerScore = 0;
@@ -137,5 +171,6 @@ playButton.addEventListener("click", function(){
     mainContainer.appendChild(rockButton);
     mainContainer.appendChild(paperButton);
     mainContainer.appendChild(scissorsButton);
+    playButton.disabled = true;
     startGame();
 });
