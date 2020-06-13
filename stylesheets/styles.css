@@ -1,42 +1,54 @@
-.header {
-    display: flex;
-    flex-direction: column;
-}
-
 .game-title {
     text-align: center;
-    border: red solid 1px;
-    margin: 30px 0px 0px 0px;
-    padding: 5px;
-}
-
-.game-info {
-    text-align: center;
-    border: blue solid 1px;
-    margin: 20px 0px 0px 0px;
-    padding: 5px;
-}
-
-.play-game {
-    margin: 30px 0px 0px 0px;
-    align-self: center;
-}
-
-.button {
-    width: 10em;
-    height: 4em;
-    align-self: center;
-    margin: 10px 0px 0px 0px;
+    text-transform: uppercase;
+    font-size: 48px;
 }
 
 .main-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    margin: 20px 0px 0px 0px;
-    border: red solid 1px;
 }
 
-.status {
+.button-container {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.button {
+    width: 200px;
+    height: 80px;
+    border-radius: 3%;
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+.button:hover {
+    background-color: lightsalmon;
+}
+
+.play-game {
+    background-color: lightgreen;
+    align-self: center;
+    margin-bottom: 15px;
+    margin-top: 40px;
+}
+
+.rock {
+    background-color: tan;
+}
+
+.paper {
+    background-color: lightgray;
+
+}
+
+.scissors {
+    background-color: darkgrey;
+}
+
+p {
     text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
 }

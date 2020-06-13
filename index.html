@@ -5,15 +5,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Rock Paper Scissors</title>
         <link rel="stylesheet" href="stylesheets/styles.css">
+        <link rel="icon" href="images/favicon.png">
     </head>
     <body>
-        <header class="header">
+        <header>
             <h1 class="game-title">Rock, Paper, Scissors</h1>
-            <p class="game-info">Click "Play Game" to play a five round game. Whoever gets to 5 points first wins!</p>
-            <button class="play-game button">Play Game</button>
         </header>
         <main>
             <div class="main-container">
+                <p>Whoever wins 5 rounds wins the game.</p>
+                <button class="play-game button">Play Game</button>
+                <p class="game-status"></p>
+                <p class="score-status">Your Score: 0 Computer Score: 0</p>
+                <div class="button-container">
+                    <button class="rock button">Rock</button>
+                    <button class="paper button">Paper</button>
+                    <button class="scissors button">Scissors</button>
+                </div>
             </div>
         </main>
     </body>

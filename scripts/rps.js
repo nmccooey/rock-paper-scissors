@@ -1,21 +1,66 @@
-// List of possible choices - rock, paper, or scissors.
-function computerPlay() {
-    let playList = ["rock", "paper", "scissors"];
-    return playList[getRandomIntInclusive(0, 2)];
+const playButton = document.querySelector(".play-game");
+const gameStatus = document.querySelector(".game-status");
+const scoreStatus = document.querySelector(".score-status");
+const rockButton = document.querySelector(".rock");
+const paperButton = document.querySelector(".paper");
+const scissorsButton = document.querySelector(".scissors");
+
+let playerScore;
+let computerScore;
+let computerSelection;
+let result;
+let round;
+
+function originalGameState() {
+    playButton.disabled = false;
+    rockButton.disabled = true;
+    paperButton.disabled = true;
+    scissorsButton.disabled = true;
+
+    playerScore = 0;
+    computerScore = 0;
+    computerSelection = "";
+    result = "";
+    round = 0;
+    gameStatus.textContent = "";
+    scoreStatus.textContent = (`Your Score: ${playerScore} Computer Score: ${computerScore}`);
+    playButton.addEventListener("click", startGame);
 }
 
-// Geneterates a random number between min and max inclusive.
-function getRandomIntInclusive(min, max) {
-    min = Math.ceil(min)
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
-  }
+function startGame() {
+    playButton.disabled = true;
+    rockButton.disabled = false;
+    paperButton.disabled = false;
+    scissorsButton.disabled = false;
+
+    rockButton.addEventListener("click", function(){
+        computerChoice();
+        result = playRound("rock");
+        updateUI();
+    });
+
+    paperButton.addEventListener("click", function(){
+        computerChoice();
+        result = playRound("paper");
+        updateUI();
+    });
+
+    scissorsButton.addEventListener("click", function(){
+        computerChoice();
+        result = playRound("scissors");
+        updateUI();
+    });
+}
+
+function computerChoice() {
+    let choices = ["rock", "paper", "scissors"];
+    computerSelection = choices[getRandomIntInclusive(0, 2)];
+}
 
 // Determines who is the winner and returns the information on who won.
-function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection) {
     let endRoundMessage = "";
-    playerSelection.toLowerCase();
-    
+
     if (computerSelection === "rock") {
         switch (playerSelection) {
             case "rock":
@@ -56,121 +101,58 @@ function playRound(playerSelection, computerSelection) {
     return endRoundMessage;
 }
 
-// Setup for a 5 round game.
-function startGame() {
-    
-    let playerSelection;
-    let computerSelection;
+function updateUI() {
+    let winner = "";
 
-    rockButton.addEventListener("click", function(){
-        playerSelection = "rock";
-        computerSelection = computerPlay();
-        let result = playRound(playerSelection, computerSelection);
-        gameStatus.textContent = (result);
-        if (result.includes("Win")) {
-            playerScore++;
-        } else if (result.includes("Lose")) {
-            computerScore++;
-        }
-
+    if (result.includes("Win!")) {
+        playerScore++;
+        gameStatus.textContent = result;
         scoreStatus.textContent = (`Your Score: ${playerScore} Computer Score: ${computerScore}`);
-
-        if (playerScore == 5) {
-            gameOver("win");
-        } else if (computerScore == 5) {
-            gameOver("lose");
-        }
-
-        return;
-    });
-
-    paperButton.addEventListener("click", function(){
-        playerSelection = "paper";
-        computerSelection = computerPlay();
-        let result = playRound(playerSelection, computerSelection);
-        gameStatus.textContent = (result);
-        if (result.includes("Win")) {
-            playerScore++;
-        } else if (result.includes("Lose")) {
-            computerScore++;
-        }
-
+    } else if (result.includes("Lose!")) {
+        computerScore++;
+        gameStatus.textContent = result;
         scoreStatus.textContent = (`Your Score: ${playerScore} Computer Score: ${computerScore}`);
+    } else if (result.includes("Tie")) {
+        gameStatus.textContent = result;
+    }
 
-        if (playerScore == 5) {
-            gameOver("win");
-        } else if (computerScore == 5) {
-            gameOver("lose");
-        }
-
-        return;
-    });
-
-    scissorsButton.addEventListener("click", function(){
-        playerSelection = "scissors";
-        computerSelection = computerPlay();
-        let result = playRound(playerSelection, computerSelection);
-        gameStatus.textContent = (result);
-        if (result.includes("Win")) {
-            playerScore++;
-        } else if (result.includes("Lose")) {
-            computerScore++;
-        }
-        
-        scoreStatus.textContent = (`Your Score: ${playerScore} Computer Score: ${computerScore}`);
-
-        if (playerScore == 5) {
-            gameOver("win");
-        } else if (computerScore == 5) {
-            gameOver("lose");
-        }
-
-        return;
-    });
-}
-
-function gameOver(result) {
-    if (result == "win") {
-        alert("You Win!")
-        location.reload();
-    } else if (result == "lose") {
-        alert("You Lose!")
-        location.reload();
+    if (playerScore == 5 && computerScore == 5) {
+        winner = "tie";
+        gameOver("tie");
+    } else if (playerScore == 5) {
+        winner = "player";
+        gameOver(winner);
+    } else if (computerScore == 5) {
+        winner = "computer";
+        gameOver(winner);
     }
 }
 
-let playerScore = 0;
-let computerScore = 0;
+function gameOver(winner) {
+    if (winner == "player") {
+        gameStatus.textContent = "You Win the Game!"
+    } else if (winner == "computer") {
+        gameStatus.textContent = "You Lose the Game."
+    } else if (winner = "tie") {
+        gameStatus.textContent = "The Game is a Tie."
+    }
 
-const mainContainer = document.querySelector(".main-container");
-const gameStatus = document.createElement("p");
-const scoreStatus = document.createElement("p");
-const rockButton = document.createElement("button");
-const paperButton = document.createElement("button");
-const scissorsButton = document.createElement("button");
+    rockButton.disabled = true;
+    paperButton.disabled = true;
+    scissorsButton.disabled = true;
+    playButton.disabled = false;
 
-gameStatus.textContent = "Rock, Paper, or Scissors?";
-gameStatus.classList.add("status");
+    playButton.textContent = "Play Again"
+    playButton.addEventListener("click", function(){
+        location.reload();
+    });
+}
 
-scoreStatus.textContent = "Your Score: 0 Computer Score: 0";
-scoreStatus.classList.add("status");
+// Geneterates a random number between min and max inclusive.
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min)
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+  }
 
-rockButton.textContent = "Rock";
-rockButton.classList.add("rock", "button");
-
-paperButton.textContent = "Paper";
-paperButton.classList.add("paper", "button");
-
-scissorsButton.textContent = "Scissors";
-scissorsButton.classList.add("scissors", "button");
-
-const playButton = document.querySelector(".play-game");
-playButton.addEventListener("click", function(){
-    mainContainer.appendChild(gameStatus);
-    mainContainer.appendChild(scoreStatus);
-    mainContainer.appendChild(rockButton);
-    mainContainer.appendChild(paperButton);
-    mainContainer.appendChild(scissorsButton);
-    playButton.disabled = true;
-    startGame();
-});
+originalGameState();
